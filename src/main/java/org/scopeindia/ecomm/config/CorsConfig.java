@@ -1,20 +1,32 @@
 package org.scopeindia.ecomm.config;
 
+import java.util.List;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
-public class CorsConfig implements WebMvcConfigurer {
+public class CorsConfig {
 
-  @Override
-  public void addCorsMappings(CorsRegistry registry) {
-    registry.addMapping("/**")
-      .allowedOrigins(
-        "http://a7ea4fe377cb348f89afd0ed91057a9b-820732453.ap-south-1.elb.amazonaws.com"
-      )
-      .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-      .allowedHeaders("*")
-      .allowCredentials(false);
+  @Bean
+  public CorsFilter corsFilter() {
+    CorsConfiguration config = new CorsConfiguration();
+
+    // IMPORTANT: frontend ELB origin (no trailing slash)
+    config.setAllowedOrigins(List.of(
+      "http://a7ea4fe377cb348f89afd0ed91057a9b-820732453.ap-south-1.elb.amazonaws.com"
+    ));
+
+    config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
+    config.setAllowedHeaders(List.of("*"));
+    config.setExposedHeaders(List.of("Location"));
+    config.setAllowCredentials(false); // keep false unless you use cookies/auth
+
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
+
+    return new CorsFilter(source);
   }
 }
