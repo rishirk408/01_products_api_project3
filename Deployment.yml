@@ -17,6 +17,7 @@ spec:
     containers:
     - name: productscontainer
       image: rishirk408/products
+      imagePullPolicy: Always
       ports:
       - containerPort: 8080
 ---
