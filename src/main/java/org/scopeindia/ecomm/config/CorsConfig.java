@@ -16,7 +16,7 @@ public class CorsConfig {
 
     // IMPORTANT: frontend ELB origin (no trailing slash)
     config.setAllowedOrigins(List.of(
-      "http://a7ea4fe377cb348f89afd0ed91057a9b-820732453.ap-south-1.elb.amazonaws.com"
+      "http://a31e60a343e9f4c22a7d6dfdd7099d38-1715227186.ap-south-1.elb.amazonaws.com"
     ));
 
     config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
