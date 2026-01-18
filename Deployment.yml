@@ -24,7 +24,7 @@ kind: Service
 metadata:
   name: productssvc
 spec:
-  type: LoadBalancer
+  type: ClusterIP       # <-- change from LoadBalancer
   selector:
     app: products
   ports:
